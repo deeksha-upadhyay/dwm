@@ -1,0 +1,32 @@
+import matplotlib.pyplot as plt
+
+# Sample data
+data = [12, 15, 7, 10, 22, 18, 14, 20, 6, 9, 25, 30, 5, 11, 17]
+num_bins = 3
+
+# Manual sorting (Bubble Sort)
+for i in range(len(data)):
+    for j in range(len(data) - i - 1):
+        if data[j] > data[j + 1]:
+            data[j], data[j + 1] = data[j + 1], data[j]
+
+# Compute cut points for equal-depth bins
+n = len(data)
+cut1 = data[n // num_bins]
+cut2 = data[2 * n // num_bins]
+bins = [float('-inf'), cut1, cut2, float('inf')]
+
+# Assign values to bins
+for val in data:
+    for i in range(len(bins) - 1):
+        if bins[i] < val <= bins[i + 1]:
+            print(f"Value {val} => Bin {i + 1}")
+            break
+
+# Draw histogram
+plt.hist(data, bins=bins, edgecolor='black', rwidth=0.8)
+plt.title("Equal-Depth Binning Histogram")
+plt.xlabel("Value")
+plt.ylabel("Frequency")
+plt.grid(True)
+plt.show()
